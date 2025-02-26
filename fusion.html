@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단서 융합</title>
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .result {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+            border-left: 5px solid #4CAF50;
+            display: none;
+        }
+        
+        .result h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .result-value {
+            font-size: 22px;
+            margin-top: 10px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>단서 융합</h1>
+        
+        <div class="input-group">
+            <label for="input1">첫 번째 단서:</label>
+            <input type="text" id="input1" placeholder="예: 두껍고 네모난 책, 화장실 창문, 연두색 유리 병 등">
+        </div>
+        
+        <div class="input-group">
+            <label for="input2">두 번째 단서:</label>
+            <input type="text" id="input2" placeholder="예: 화장실 창문 밖 화단, 화장실 창문, 연두색 유리 병 등">
+        </div>
+        
+        <button id="calculate">결과 확인하기</button>
+        
+        <div class="result" id="result">
+            <h2>확인 결과</h2>
+            <div class="result-value" id="result-value"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculate').addEventListener('click', function() {
+            // 입력값 가져오기
+            const input1 = document.getElementById('input1').value;
+            const input2 = document.getElementById('input2').value;
+            
+            // 입력값 검증
+            if (!input1 || !input2) {
+                alert('두 개의 단서를 모두 입력해주세요.');
+                return;
+            }
+            
+            // 결과 계산
+            const result = calculateResult(input1, input2);
+            
+            // 결과 영역 표시
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'block';
+            
+            // 결과값 요소 가져오기
+            const resultValueElement = document.getElementById('result-value');
+            resultValueElement.textContent = '';  // 기존 텍스트 초기화
+            
+            // 한 글자씩 출력하는 애니메이션
+            let i = 0;
+            const typeWriter = function() {
+                if (i < result.length) {
+                    resultValueElement.textContent += result.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100); // 100ms마다 한 글자씩 출력
+                }
+            };
+            
+            // 타이핑 애니메이션 시작
+            typeWriter();
+        });
+        
+        function calculateResult(input1, input2) {
+            // 입력값 소문자로 변환하여 검사 (대소문자 구분 없애기)
+            const input1Lower = input1.toLowerCase().trim();
+            const input2Lower = input2.toLowerCase().trim();
+            
+            // 조건에 맞는 특정 단어 정의
+            const book = "두껍고 네모난 책";
+            const window = "화장실 창문";
+            const bottle = "연두색 유리 병";
+            const garden = "화장실 창문 밖 화단";
+            
+            // 조건 1: "두껍고 네모난 책"과 "화장실 창문"이 둘 다 입력되면 (순서 상관없이)
+            if ((input1Lower === book && input2Lower === window) || 
+                (input1Lower === window && input2Lower === book)) {
+                return "결과물 B 카드를 확인하세요";
+            }
+            
+            // 조건 2: "연두색 유리 병"과 "화장실 창문 밖 화단"이 둘 다 입력되면 (순서 상관없이)
+            if ((input1Lower === bottle && input2Lower === garden) || 
+                (input1Lower === garden && input2Lower === bottle)) {
+                return "결과물 A 카드를 확인하세요";
+            }
+            
+            // 조건 3: 그 외 모든 경우
+            return "결과물 F 카드를 확인하세요";
+        }
+    </script>
+</body>
+</html>
