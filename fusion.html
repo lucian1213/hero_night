@@ -161,7 +161,23 @@
             // 조건에 맞는 특정 단어 정의
             const book = "두껍고 네모난 책";
             const window = "화장실 창문";
-            c을 확인하세요";
+            const bottle = "연두색 유리 병";
+            const garden = "화장실 창문 밖 화단";
+            
+            // 조건 1: "두껍고 네모난 책"과 "화장실 창문"이 둘 다 입력되면 (순서 상관없이)
+            if ((input1Lower === book && input2Lower === window) || 
+                (input1Lower === window && input2Lower === book)) {
+                return "개인 카드 2번을 확인하세요";
+            }
+            
+            // 조건 2: "연두색 유리 병"과 "화장실 창문 밖 화단"이 둘 다 입력되면 (순서 상관없이)
+            if ((input1Lower === bottle && input2Lower === garden) || 
+                (input1Lower === garden && input2Lower === bottle)) {
+                return "개인 카드 1번을 확인하세요";
+            }
+            
+            // 조건 3: 그 외 모든 경우
+            return "개인 카드 4번을 확인하세요";
         }
     </script>
 </body>
