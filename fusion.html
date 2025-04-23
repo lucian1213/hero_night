@@ -99,13 +99,13 @@
         <h1>단서 융합</h1>
         
         <div class="input-group">
-            <label for="input1">첫 번째 단서:</label>
-            <input type="text" id="input1" placeholder="">
+            <label for="input1">첫 번째 단서 번호:</label>
+            <input type="number" id="input1" placeholder="숫자를 입력하세요">
         </div>
         
         <div class="input-group">
-            <label for="input2">두 번째 단서:</label>
-            <input type="text" id="input2" placeholder="">
+            <label for="input2">두 번째 단서 번호:</label>
+            <input type="number" id="input2" placeholder="숫자를 입력하세요">
         </div>
         
         <button id="calculate">결과 확인하기</button>
@@ -119,12 +119,12 @@
     <script>
         document.getElementById('calculate').addEventListener('click', function() {
             // 입력값 가져오기
-            const input1 = document.getElementById('input1').value;
-            const input2 = document.getElementById('input2').value;
+            const input1 = parseInt(document.getElementById('input1').value);
+            const input2 = parseInt(document.getElementById('input2').value);
             
             // 입력값 검증
-            if (!input1 || !input2) {
-                alert('두 개의 단서를 모두 입력해주세요.');
+            if (isNaN(input1) || isNaN(input2)) {
+                alert('두 개의 단서 번호를 모두 입력해주세요.');
                 return;
             }
             
@@ -154,25 +154,17 @@
         });
         
         function calculateResult(input1, input2) {
-            // 입력값 소문자로 변환하여 검사 (대소문자 구분 없애기)
-            const input1Lower = input1.toLowerCase().trim();
-            const input2Lower = input2.toLowerCase().trim();
+            // 두 입력값을 정렬하여 작은 수와 큰 수로 분리
+            const smallNumber = Math.min(input1, input2);
+            const largeNumber = Math.max(input1, input2);
             
-            // 조건에 맞는 특정 단어 정의
-            const book = "두껍고 네모난 책";
-            const window = "화장실 창문";
-            const bottle = "연두색 유리 병";
-            const garden = "화장실 창문 밖 화단";
-            
-            // 조건 1: "두껍고 네모난 책"과 "화장실 창문"이 둘 다 입력되면 (순서 상관없이)
-            if ((input1Lower === book && input2Lower === window) || 
-                (input1Lower === window && input2Lower === book)) {
+            // 조건 1: 26과 27이 입력되면 (순서 상관없이)
+            if ((smallNumber === 26 && largeNumber === 27)) {
                 return "개인 카드 2번을 확인하세요";
             }
             
-            // 조건 2: "연두색 유리 병"과 "화장실 창문 밖 화단"이 둘 다 입력되면 (순서 상관없이)
-            if ((input1Lower === bottle && input2Lower === garden) || 
-                (input1Lower === garden && input2Lower === bottle)) {
+            // 조건 2: 15와 28이 입력되면 (순서 상관없이)
+            if ((smallNumber === 15 && largeNumber === 28)) {
                 return "개인 카드 1번을 확인하세요";
             }
             
