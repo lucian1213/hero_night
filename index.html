@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <title>능력자의 밤 페이지</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Gowun Dodum', sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
+            overflow: hidden;
         }
         .container {
-            background-color: white;
+            background-color: transparent;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .intro {
             margin-bottom: 30px;
             line-height: 1.6;
         }
+        .intro h1 {
+            color: #333;
+        }
         .player-container {
             margin: 20px 0;
             padding: 20px;
-            background-color: #f8f9fa;
+            background-color: rgba(248, 249, 250, 0.9);
             border-radius: 5px;
         }
         .story-text {
@@ -34,9 +42,10 @@
             font-size: 16px;
             margin: 20px 0;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
             border-left: 4px solid #007bff;
+            color: #333;
         }
         .normal-text {
             white-space: pre-line;
@@ -44,9 +53,10 @@
             font-size: 16px;
             margin: 20px 0;
             padding: 20px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
-            border-left: none
+            border-left: none;
+            color: #333;
         }
         .player-title {
             margin-bottom: 10px;
@@ -73,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-
     // 독립 플레이어 볼륨 컨트롤
     independentPlayers.forEach(player => {
         // 재생 시작할 때
@@ -85,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-
         // 재생 끝났을 때
         player.addEventListener('ended', function() {
             normalPlayers.forEach(normalPlayer => {
@@ -101,12 +109,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="container">
         <div class="intro">
             <h1>능력자의 밤 나레이션</h1>
-
             <div class="normal-text">능력자의 밤 차례가 되면 하단의 나레이션을 재생하신 후,
             능력자의 밤을 진행합니다. 나레이션이 모두 끝나고 능력자의 밤이 종료되면
             다시 게임을 진행합니다.</div>
         </div>
-
         <div class="player-container">
             <h3 class="player-title">능력자의 밤</h3>
             <audio controls class="audio-player">
@@ -114,9 +120,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 브라우저가 오디오 재생을 지원하지 않습니다.
             </audio>
         </div>
-
-
-
-
 </body>
 </html>
