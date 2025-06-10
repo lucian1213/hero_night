@@ -45,7 +45,7 @@
         
         input[type="text"], 
         input[type="number"] {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -175,7 +175,12 @@
                 return "개인 카드 1번을 확인하세요";
             }
             
-            // 조건 3: 그 외 모든 경우
+            // 조건 3: 8과 25 또는 25와 27이 입력되면 (순서 상관없이)
+            if ((smallNumber === 8 && largeNumber === 25) || (smallNumber === 25 && largeNumber === 27)) {
+                return "개인 카드 3번을 확인하세요";
+            }
+            
+            // 조건 4: 그 외 모든 경우
             return "개인 카드 4번을 확인하세요";
         }
     </script>
