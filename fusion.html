@@ -91,6 +91,11 @@
             color: #333;
         }
         
+        .card-number {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
         @media (max-width: 600px) {
             body {
                 padding: 10px;
@@ -144,20 +149,10 @@
             
             // 결과값 요소 가져오기
             const resultValueElement = document.getElementById('result-value');
-            resultValueElement.textContent = '';  // 기존 텍스트 초기화
+            resultValueElement.innerHTML = '';  // 기존 HTML 초기화
             
-            // 한 글자씩 출력하는 애니메이션
-            let i = 0;
-            const typeWriter = function() {
-                if (i < result.length) {
-                    resultValueElement.textContent += result.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100); // 100ms마다 한 글자씩 출력
-                }
-            };
-            
-            // 타이핑 애니메이션 시작
-            typeWriter();
+            // HTML이 포함된 결과를 직접 설정
+            resultValueElement.innerHTML = result;
         });
         
         function calculateResult(input1, input2) {
@@ -167,21 +162,21 @@
             
             // 조건 1: 26과 27이 입력되면 (순서 상관없이)
             if ((smallNumber === 26 && largeNumber === 27)) {
-                return "개인 카드 2번을 확인하세요";
+                return '개인 카드 <span class="card-number">2번</span>을 확인하세요';
             }
             
             // 조건 2: 15와 28이 입력되면 (순서 상관없이)
             if ((smallNumber === 15 && largeNumber === 28)) {
-                return "개인 카드 1번을 확인하세요";
+                return '개인 카드 <span class="card-number">1번</span>을 확인하세요';
             }
             
             // 조건 3: 8과 25 또는 25와 27이 입력되면 (순서 상관없이)
             if ((smallNumber === 8 && largeNumber === 25) || (smallNumber === 25 && largeNumber === 27)) {
-                return "개인 카드 3번을 확인하세요";
+                return '개인 카드 <span class="card-number">3번</span>을 확인하세요';
             }
             
             // 조건 4: 그 외 모든 경우
-            return "개인 카드 4번을 확인하세요";
+            return '개인 카드 <span class="card-number">4번</span>을 확인하세요';
         }
     </script>
 </body>
